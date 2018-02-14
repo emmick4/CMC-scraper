@@ -57,13 +57,13 @@ def name_file(start_time, num_days):
 def estimate_time_left(start_time, pct_left):
     now = time.time()
     seconds_spent = now - start_time
-    return seconds_spent * (1/pct_left)
+    return seconds_spent * (pct_left/ (1 - pct_left))
 
 def status_update(count, num_days, started_at):
     print(
         "Scraping Day", "{on}/{total}".format(on=count, total=int(num_days//1)), "|",
         str(round((count / num_days) * 100, 2)) + "%", "|",
-        "{}s left".format(round(estimate_time_left(started_at, count/num_days)))
+        "{}s left".format(round(estimate_time_left(started_at, 1 - count/num_days)))
         )
 
 def grab_data(start_time, num_days, coin):
