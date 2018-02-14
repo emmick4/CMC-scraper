@@ -1,4 +1,4 @@
-<b>HOW TO INSTALL:
+**HOW TO INSTALL:**
 
 If you're so inclined go ahead and create a seperate environment (the only dependency is requests so this probably isn't necessary)
 
@@ -9,7 +9,7 @@ Then run:
 
 You're done :)
 
-<b>HOW TO USE:
+**HOW TO USE:**
 
 Open a command line / terminal / shell window and navigate to the folder containing scraper.py
 
