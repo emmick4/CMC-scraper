@@ -83,6 +83,8 @@ def get_args():
             num_days = int(arg.lstrip("num_days="))
         elif "coin=" in arg:
             coin = arg.lstrip("coin=")
+    if not num_days:
+        num_days = (time.time() - start_time)/86400
     return start_time, num_days, coin
 
 def __main__():
