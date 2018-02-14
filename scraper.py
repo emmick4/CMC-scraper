@@ -86,10 +86,10 @@ def get_args():
     return start_time, num_days, coin
 
 def __main__():
-    # try:
-    start_time, num_days, coin = get_args()
-    # except:
-    #     raise ValueError("Be sure to include start_time, num_days, and coin")
+    try:
+        start_time, num_days, coin = get_args()
+    except:
+        raise ValueError("Be sure to include start_time, num_days, and coin")
 
     output, filename = grab_data(start_time=start_time, num_days=num_days, coin=coin)
     write_data(filename=filename, array=output)
