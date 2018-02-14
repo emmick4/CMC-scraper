@@ -22,7 +22,7 @@ def scrape(coin, ts):
     #  scrape 24h steps of price data with 5 min granularity
     ts *= 1000  # coinmarketcap wants milliseconds for some reason
     step = 86400000
-    url = "https://graphs2.coinmarketcap.com/currencies/bitcoin/{ts}/{ts2}/".format(ts=ts, ts2= ts+step)
+    url = "https://graphs2.coinmarketcap.com/currencies/{coin}/{ts}/{ts2}/".format(ts=ts, ts2= ts+step, coin=coin)
     response = call_api(url)
     return response
 
@@ -54,12 +54,25 @@ def name_file(start_time, num_days):
     filename = start_str + ' - ' + end_str + ".csv"
     return filename
 
+def estimate_time_left(start_time, pct_left):
+    now = time.time()
+    seconds_spent = now - start_time
+    return seconds_spent * (1/pct_left)
+
+def status_update(count, num_days, started_at):
+    print(
+        "Scraping Day", "{on}/{total}".format(on=count, total=int(num_days//1)), "|",
+        str(round((count / num_days) * 100, 2)) + "%", "|",
+        "{}s left".format(round(estimate_time_left(started_at, count/num_days)))
+        )
+
 def grab_data(start_time, num_days, coin):
-    times = [start_time + (i * 86400) for i in range(num_days)]
+    times = [start_time + (i * 86400) for i in range(int(num_days // 1))]
     complete_array = []
     count = 1
+    started = time.time()
     for ts in times:
-        print("Scraping Day #", count)
+        status_update(count, num_days, started)
         count += 1
         output = scrape(coin, ts)
         parsed = parse_output(output)
@@ -83,7 +96,9 @@ def get_args():
             num_days = int(arg.lstrip("num_days="))
         elif "coin=" in arg:
             coin = arg.lstrip("coin=")
-    if not num_days:
+    try:
+        num_days
+    except NameError:
         num_days = (time.time() - start_time)/86400
     return start_time, num_days, coin
 
