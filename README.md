@@ -21,6 +21,6 @@ Example: `python scraper.py coin=bitcoin start_time=1514764800 num_days=10`
 
 `start_time` -- the start timestamp of the data to grab (unix timestamp, use https://www.epochconverter.com/ and be sure to use the one WITHOUT milliseconds)
 
-`num_days` -- [optional] the number of days of data to grab after the start time if not present, runs until current time
+`num_days` -- [optional] the number of days of data to grab after the start time *if not present, runs until current time*
 
 Please don't play with the sleep time in the call_api function or coinmarketcap WILL BAN YOU WITHOUT WARNING OR HESITATION and more importantly maybe even change their endpoint so this script will break
