@@ -1,3 +1,6 @@
 /venv/
 /.idea/
+/package/
+pricing - *
 .DS_Store
+/package/
